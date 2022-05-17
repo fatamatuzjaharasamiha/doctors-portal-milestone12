@@ -1,8 +1,8 @@
 import React from 'react';
 
-const PrimaryButton = ({children}) => {
+const PrimaryButton = ({ children }) => {
     return (
-        <button class="btn btn-primary uppercase text-white font-bold  bg-gradient-to-r from-secondary-to-primary">{children}</button>
+        <button className="btn btn-primary uppercase text-white font-bold  bg-gradient-to-r from-green-300 to-blue-500 hover:from-blue-500 hover:to-green-500 ">{children}</button>
     );
 };
 
