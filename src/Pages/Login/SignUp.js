@@ -12,12 +12,12 @@ const SignUp = () => {
         user,
         loading,
         error,
-    ] = useCreateUserWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth,{ sendEmailVerification: true });
 
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
     const navigate = useNavigate();
-    
+
     let signUpError;
 
     if (loading || gLoading) {
@@ -25,7 +25,7 @@ const SignUp = () => {
     }
 
     if (error || gError || updateError) {
-        signUpError = <p className='text-red-500'>{error?.message || gError?.message}</p>
+        signUpError = <p className='text-red-500'>{error?.message || gError?.message || updateError?.message}</p>
     }
 
     if (user || gUser) {
@@ -46,14 +46,14 @@ const SignUp = () => {
                 <div className="card-body">
                     <h2 className="text-center text-2xl font-bold">Signup</h2>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <div class="form-control w-full max-w-xs">
-                            <label class="label">
-                                <span class="label-text">Name</span>
+                        <div className="form-control w-full max-w-xs">
+                            <label className="label">
+                                <span className="label-text">Name</span>
                             </label>
                             <input
                                 type="name"
                                 placeholder="Your Name"
-                                class="input input-bordered w-full max-w-xs"
+                                className="input input-bordered w-full max-w-xs"
                                 {...register("name", {
                                     required: {
                                         value: true,
@@ -61,23 +61,23 @@ const SignUp = () => {
                                     }
 
                                 })} />
-                            <label class="label">
+                            <label className="label">
 
                                 {
-                                    errors.name?.type === 'required' && <span class="label-text-alt text-red-500">{errors.name.message}</span>
+                                    errors.name?.type === 'required' && <span className="label-text-alt text-red-500">{errors.name.message}</span>
                                 }
 
 
                             </label>
                         </div>
-                        <div class="form-control w-full max-w-xs">
-                            <label class="label">
-                                <span class="label-text">Email</span>
+                        <div className="form-control w-full max-w-xs">
+                            <label className="label">
+                                <span className="label-text">Email</span>
                             </label>
                             <input
                                 type="email"
                                 placeholder="Your Email"
-                                class="input input-bordered w-full max-w-xs"
+                                className="input input-bordered w-full max-w-xs"
                                 {...register("email", {
                                     required: {
                                         value: true,
@@ -88,25 +88,25 @@ const SignUp = () => {
                                         message: 'Provide a valid Email' // JS only: <p>error message</p> TS only support string
                                     }
                                 })} />
-                            <label class="label">
+                            <label className="label">
 
                                 {
-                                    errors.email?.type === 'required' && <span class="label-text-alt text-red-500">{errors.email.message}</span>
+                                    errors.email?.type === 'required' && <span className="label-text-alt text-red-500">{errors.email.message}</span>
                                 }
-                                {errors.email?.type === 'pattern' && <span class="label-text-alt text-red-500">{errors.email.message}</span>}
+                                {errors.email?.type === 'pattern' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}
 
                             </label>
                         </div>
                         {/* Paaswod */}
-                        <div class="form-control w-full max-w-xs">
-                            <label class="label">
-                                <span class="label-text">Password</span>
+                        <div className="form-control w-full max-w-xs">
+                            <label className="label">
+                                <span className="label-text">Password</span>
 
                             </label>
                             <input
                                 type="password"
                                 placeholder="Your Password"
-                                class="input input-bordered w-full max-w-xs"
+                                className="input input-bordered w-full max-w-xs"
                                 {...register("password", {
                                     required: {
                                         value: true,
@@ -117,12 +117,12 @@ const SignUp = () => {
                                         message: 'Must be 6 character or longer' // JS only: <p>error message</p> TS only support string
                                     }
                                 })} />
-                            <label class="label">
+                            <label className="label">
 
                                 {
-                                    errors.password?.type === 'required' && <span class="label-text-alt text-red-500">{errors.password.message}</span>
+                                    errors.password?.type === 'required' && <span className="label-text-alt text-red-500">{errors.password.message}</span>
                                 }
-                                {errors.password?.type === 'minLength' && <span class="label-text-alt text-red-500">{errors.password.message}</span>}
+                                {errors.password?.type === 'minLength' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
 
                             </label>
                         </div>
