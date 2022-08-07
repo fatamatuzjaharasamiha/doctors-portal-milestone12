@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import Loading from '../Shared/Loading';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { sendPasswordResetEmail } from 'firebase/auth';
+import useToken from '../../hooks/useToken';
 
 
 const Login = () => {
@@ -19,7 +20,7 @@ const Login = () => {
     const [sendPasswordResetEmail] = useSendPasswordResetEmail(
         auth
     );
-
+    const [token] = useToken(user || gUser)
     const email = getValues('email')
 
     let signInError;
@@ -29,10 +30,10 @@ const Login = () => {
     let from = location.state?.from?.pathname || "/";
 
     useEffect(() => {
-        if (user || gUser) {
+        if (token) {
             navigate(from, { replace: true });
         }
-    }, [user, gUser, from, navigate])
+    }, [token, from, navigate])
 
     if (loading || gLoading) {
         return <Loading></Loading>
@@ -64,8 +65,8 @@ const Login = () => {
     }
 
     return (
-        <div className='flex h-screen justify-center items-center'>
-            <div className="card w-96 bg-base-100 shadow-xl">
+        <div className='flex h-screen justify-center items-center bg-'>
+            <div className="card w-96 bg-blue-100 shadow-xl font-bold">
                 <div className="card-body">
                     <h2 className="text-center text-2xl font-bold">Log in</h2>
                     <form onSubmit={handleSubmit(onSubmit)}>
